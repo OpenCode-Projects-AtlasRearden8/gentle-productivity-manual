@@ -1,0 +1,169 @@
+/* The Gentle Productivity Manual — local-first stylesheet (no external fonts,
+   no tracking, no network anything). Warm, high-contrast, night-friendly. */
+
+:root {
+  --bg: #fbf7f0;
+  --ink: #2b2a27;
+  --soft: #6b675f;
+  --accent: #a3542f;
+  --accent-soft: #f3e3d3;
+  --line: #e3dcd0;
+  --card: #ffffff;
+  --code-bg: #f1ece4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #211f1c;
+    --ink: #ece7de;
+    --soft: #a8a29a;
+    --accent: #d98c5f;
+    --accent-soft: #3a2e24;
+    --line: #3b3833;
+    --card: #2a2723;
+    --code-bg: #191713;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.65 Georgia, "Times New Roman", serif;
+}
+
+.site-header {
+  border-bottom: 3px solid var(--accent);
+  padding: 1rem 1.25rem;
+  background: var(--accent-soft);
+}
+
+.site-header .brand {
+  margin: 0;
+  font-size: 1.35rem;
+  font-family: Georgia, serif;
+}
+
+.site-header .brand a { color: inherit; text-decoration: none; }
+.site-header .tagline { margin: 0.15rem 0 0; color: var(--soft); font-size: 0.9rem; }
+
+.layout {
+  display: flex;
+  align-items: flex-start;
+  max-width: 66rem;
+  margin: 0 auto;
+  padding: 1rem;
+  gap: 1.5rem;
+}
+
+.sidebar {
+  width: 15.5rem;
+  flex-shrink: 0;
+  position: sticky;
+  top: 1rem;
+  font-size: 0.92rem;
+}
+
+.sidebar h2,
+main h2 { font-family: Georgia, serif; }
+
+.sidebar ol { margin: 0; padding-left: 1.2rem; }
+.sidebar li { margin: 0.45rem 0; }
+.sidebar a { color: var(--ink); text-decoration: none; }
+.sidebar a:hover { color: var(--accent); text-decoration: underline; }
+
+main {
+  flex: 1;
+  min-width: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.5rem 2rem 1rem;
+  box-shadow: 0 1px 3px rgba(60, 40, 10, 0.08);
+}
+
+main > h1 { font-size: 1.7rem; line-height: 1.25; margin-top: 0; }
+main > h2 { margin-top: 2rem; border-bottom: 1px solid var(--line); padding-bottom: 0.25rem; }
+main h3 { margin-top: 1.6rem; }
+
+a { color: var(--accent); }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+
+th, td {
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th { background: var(--accent-soft); }
+
+code {
+  background: var(--code-bg);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.88em;
+}
+
+pre {
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+
+pre code { background: none; padding: 0; }
+
+blockquote {
+  border-left: 4px solid var(--accent);
+  margin: 1rem 0;
+  padding: 0.35rem 1rem;
+  background: var(--accent-soft);
+  border-radius: 0 8px 8px 0;
+}
+
+blockquote p { margin: 0; }
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  font-size: 0.95rem;
+}
+
+.pager .next { margin-left: auto; text-align: right; }
+
+footer {
+  border-top: 1px solid var(--line);
+  margin-top: 2rem;
+  padding-top: 0.75rem;
+  color: var(--soft);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 760px) {
+  .layout { flex-direction: column; }
+  .sidebar { position: static; width: auto; }
+  main { padding: 1.25rem; }
+}
+
+/* Worksheets and print: keep code blocks unbroken, hide chrome. */
+@media print {
+  body { background: #fff; color: #111; }
+  .layout { max-width: none; display: block; }
+  .sidebar, .pager, footer, .site-header .tagline { display: none; }
+  main { border: none; box-shadow: none; padding: 0; }
+  pre { border: none; background: #fff; page-break-inside: avoid; }
+}
